@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>BLOOMIX</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #f6fff9;
+}
+
+/* NAV */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 30px;
+  background: white;
+}
+
+.logo { color: #4CE09E; font-weight: bold; }
+
+.coins {
+  background: #FFFFAB;
+  padding: 8px 15px;
+  border-radius: 20px;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 30px;
+}
+
+.hero h1 span { color: #4CE09E; }
+
+/* COURSE CARD */
+.courses {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  width: 220px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.btn {
+  background: #4CE09E;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* LESSON */
+.lesson {
+  display: none;
+  text-align: center;
+  padding: 20px;
+}
+
+video {
+  width: 300px;
+  border-radius: 15px;
+}
+
+/* QUIZ */
+.quiz {
+  margin-top: 20px;
+}
+
+.answer {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #E3CCFF;
+  cursor: pointer;
+}
+
+/* GARDEN */
+.garden {
+  margin: 30px auto;
+  width: 300px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.tile {
+  height: 90px;
+  background: #E3CCFF;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tile:hover {
+  transform: scale(1.1);
+}
+
+.plant {
+  background: #ABFF8E;
+}
+
+/* REWARD */
+.reward {
+  text-align: center;
+  color: #4CE09E;
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="nav">
+  <div class="logo">BLOOMIX</div>
+  <div class="coins">🪙 <span id="coins">0</span></div>
+</div>
+
+<div class="hero">
+  <h1>Grow Your <span>Mind</span></h1>
+  <p>Учись → получай награды → выращивай сад 🌱</p>
+</div>
+
+<!-- COURSES -->
+<div class="courses" id="courses">
+  <div class="card">
+    <h3>Функции</h3>
+    <p>Видео 3 мин</p>
+    <button class="btn" onclick="startLesson()">Начать</button>
+  </div>
+</div>
+
+<!-- LESSON -->
+<div class="lesson" id="lesson">
+  <h2>Видео урок</h2>
+
+  <video id="video" controls>
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+  </video>
+
+  <div class="quiz" id="quiz" style="display:none;">
+    <h3>Что такое функция?</h3>
+    <button class="answer" onclick="checkAnswer(false)">Просто число</button>
+    <button class="answer" onclick="checkAnswer(true)">Зависимость между величинами</button>
+  </div>
+</div>
+
+<div class="reward" id="reward"></div>
+
+<!-- GARDEN -->
+<div class="garden" id="garden"></div>
+
+<script>
+let coins = 0;
+
+function updateCoins() {
+  document.getElementById("coins").innerText = coins;
+}
+
+// START LESSON
+function startLesson() {
+  document.getElementById("courses").style.display = "none";
+  document.getElementById("lesson").style.display = "block";
+}
+
+// SHOW QUIZ AFTER VIDEO
+document.getElementById("video").onended = () => {
+  document.getElementById("quiz").style.display = "block";
+};
+
+// CHECK ANSWER
+function checkAnswer(correct) {
+  if (correct) {
+    coins += 20;
+    updateCoins();
+
+    showReward("Правильно! +20 монет 🎉");
+
+    document.getElementById("lesson").style.display = "none";
+    document.getElementById("courses").style.display = "flex";
+  } else {
+    showReward("Попробуй ещё раз ❌");
+  }
+}
+
+// REWARD ANIMATION
+function showReward(text) {
+  let el = document.getElementById("reward");
+  el.innerText = text;
+  setTimeout(() => el.innerText = "", 2000);
+}
+
+// GARDEN
+const garden = document.getElementById("garden");
+
+const plants = ["🌱","🌷","🌸","🌺"];
+
+for (let i = 0; i < 9; i++) {
+  let tile = document.createElement("div");
+  tile.className = "tile";
+
+  tile.onclick = () => {
+    if (coins >= 10 && !tile.classList.contains("plant")) {
+      coins -= 10;
+      updateCoins();
+
+      let randomPlant = plants[Math.floor(Math.random() * plants.length)];
+
+      tile.classList.add("plant");
+      tile.innerText = randomPlant;
+    }
+  };
+
+  garden.appendChild(tile);
+}
+</script>
+
+</body>
+</html>
