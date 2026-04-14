@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloomix — Вход или регистрация</title>
+  <style>
+    :root {
+      --bg: #FFFFAB;
+      --primary: #4CE09E;
+      --secondary: #ABFF8E;
+      --accent: #B6E07A;
+      --purple: #E3CCFF;
+      --cyan: #2FE0FF;
+      --text: #1a1a1a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #FFFFAB 0%, #E3FFCC 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 28px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      padding: 30px 30px 20px;
+      text-align: center;
+      background: linear-gradient(to right, #4CE09E, #ABFF8E);
+      color: white;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .logo-dot {
+      width: 28px;
+      height: 28px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4CE09E;
+      font-size: 18px;
+    }
+
+    .tabs {
+      display: flex;
+      background: #f8f8f8;
+      border-bottom: 1px solid #eee;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 18px;
+      text-align: center;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .tab.active {
+      background: white;
+      color: #4CE09E;
+      border-bottom: 3px solid #4CE09E;
+    }
+
+    .form-container {
+      padding: 30px;
+    }
+
+    .input-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #eee;
+      border-radius: 16px;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #4CE09E;
+      box-shadow: 0 0 0 4px rgba(76, 224, 158, 0.15);
+    }
+
+    .forgot {
+      text-align: right;
+      font-size: 14px;
+      color: #4CE09E;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: #4CE09E;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #3BC98A;
+      transform: translateY(-2px);
+    }
+
+    .btn-google {
+      background: white;
+      color: #333;
+      border: 2px solid #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .switch-text {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .switch-text span {
+      color: #4CE09E;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .terms {
+      font-size: 13px;
+      color: #666;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">
+        <div class="logo-dot">🌱</div>
+        BLOOMIX
+      </div>
+      <p style="margin-top: 8px; opacity: 0.9;">Твой цифровой сад знаний</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" id="login-tab">Вход</div>
+      <div class="tab" id="signup-tab">Регистрация</div>
+    </div>
+
+    <!-- Login Form -->
+    <div class="form-container" id="login-form">
+      <div class="input-group">
+        <label>Электронная почта</label>
+        <input type="email" id="login-email" placeholder="example@mail.com">
+      </div>
+      <div class="input-group">
+        <label>Пароль</label>
+        <input type="password" id="login-password" placeholder="••••••••">
+      </div>
+      <div class="forgot" onclick="alert('Функция восстановления пароля в разработке')">Забыли пароль?</div>
+
+      <button class="btn btn-primary" onclick="login()">Войти</button>
+      
+      <button class="btn btn-google">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png" width="20" alt="Google">
+        Продолжить с Google
+      </button>
+
+      <div class="switch-text">
+        Нет аккаунта? <span onclick="switchToSignup()">Зарегистрироваться</span>
+      </div>
+    </div>
+
+    <!-- Sign Up Form -->
+    <div class="form-container" id="signup-form" style="display: none;">
+      <div class="input-group">
+        <label>Имя</label>
+        <input type="text" id="signup-name" placeholder="Алексей">
+      </div>
+      <div class="input-group">
+        <label>Электронная почта</label>
+        <input type="email" id="signup-email" placeholder="example@mail.com">
+      </div>
+      <div class="input-group">
+        <label>Пароль</label>
+        <input type="password" id="signup-password" placeholder="••••••••">
+      </div>
+      <div class="input-group">
+        <label>Повторите пароль</label>
+        <input type="password" id="signup-confirm" placeholder="••••••••">
+      </div>
+
+      <div class="terms">
+        <input type="checkbox" id="terms">
+        <label for="terms">Я согласен с <span style="color:#4CE09E; cursor:pointer;">Условиями использования</span></label>
+      </div>
+
+      <button class="btn btn-primary" onclick="signup()">Создать аккаунт</button>
+
+      <div class="switch-text">
+        Уже есть аккаунт? <span onclick="switchToLogin()">Войти</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchToSignup() {
+      document.getElementById('login-form').style.display = 'none';
+      document.getElementById('signup-form').style.display = 'block';
+      document.getElementById('login-tab').classList.remove('active');
+      document.getElementById('signup-tab').classList.add('active');
+    }
+
+    function switchToLogin() {
+      document.getElementById('signup-form').style.display = 'none';
+      document.getElementById('login-form').style.display = 'block';
+      document.getElementById('signup-tab').classList.remove('active');
+      document.getElementById('login-tab').classList.add('active');
+    }
+
+    function login() {
+      const email = document.getElementById('login-email').value;
+      if (email) {
+        alert('Добро пожаловать обратно в Bloomix! 🌱\n(Демо-режим)');
+      } else {
+        alert('Пожалуйста, введите email');
+      }
+    }
+
+    function signup() {
+      const name = document.getElementById('signup-name').value;
+      const pass = document.getElementById('signup-password').value;
+      const confirm = document.getElementById('signup-confirm').value;
+
+      if (!name || !pass) {
+        alert('Заполните все поля');
+        return;
+      }
+      if (pass !== confirm) {
+        alert('Пароли не совпадают');
+        return;
+      }
+
+      alert(`Аккаунт успешно создан, ${name}! 🌿\nДобро пожаловать в Bloomix!`);
+    }
+
+    // Переключение табов
+    document.getElementById('login-tab').addEventListener('click', switchToLogin);
+    document.getElementById('signup-tab').addEventListener('click', switchToSignup);
+  </script>
+</body>
+</html>
