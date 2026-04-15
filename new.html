@@ -19,44 +19,36 @@ body {
   background: white;
 }
 
-.logo { color: #4CE09E; font-weight: bold; }
+.logo { color: #4CE09E; font-weight: bold; font-size: 24px; }
 
 .coins {
   background: #FFFFAB;
   padding: 8px 15px;
   border-radius: 20px;
+  font-weight: bold;
 }
 
-/* HERO */
-.hero {
-  text-align: center;
-  padding: 30px;
-}
-
-.hero h1 span { color: #4CE09E; }
-
-/* COURSE CARD */
-.courses {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
+/* HERO + COURSES */
+.hero, .courses { text-align: center; padding: 30px; }
 
 .card {
   background: white;
   padding: 20px;
   border-radius: 20px;
   width: 220px;
-  text-align: center;
+  margin: 0 auto;
   box-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
 
 .btn {
   background: #4CE09E;
   border: none;
-  padding: 10px;
+  padding: 12px 20px;
   border-radius: 10px;
   cursor: pointer;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 /* LESSON */
@@ -66,61 +58,100 @@ body {
   padding: 20px;
 }
 
-video {
-  width: 300px;
+.lesson h2 { margin-bottom: 15px; }
+
+#player {
+  margin: 20px auto;
   border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+#video-message {
+  background: rgba(0,0,0,0.75);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 15px;
+  font-size: 16px;
+  margin: 20px auto;
+  max-width: 320px;
+  display: none;
 }
 
 /* QUIZ */
 .quiz {
-  margin-top: 20px;
+  margin-top: 25px;
+  display: none;
 }
 
 .answer {
   display: block;
-  margin: 10px auto;
-  padding: 10px;
-  border-radius: 10px;
+  margin: 12px auto;
+  padding: 13px;
+  border-radius: 12px;
   border: none;
   background: #E3CCFF;
   cursor: pointer;
+  width: 85%;
+  font-size: 16px;
 }
 
-/* GARDEN */
-.garden {
-  margin: 30px auto;
-  width: 300px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.tile {
-  height: 90px;
-  background: #E3CCFF;
-  border-radius: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.tile:hover {
-  transform: scale(1.1);
-}
-
-.plant {
-  background: #ABFF8E;
-}
+.answer:hover { background: #d4b8ff; }
 
 /* REWARD */
 .reward {
   text-align: center;
   color: #4CE09E;
   font-weight: bold;
+  font-size: 18px;
+  min-height: 35px;
+  margin: 15px 0;
 }
+
+/* GARDEN */
+.garden {
+  margin: 40px auto;
+  width: 340px;
+  padding: 20px;
+  background: linear-gradient(#a8e6a1, #7ed96b);
+  border-radius: 30px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1), inset 0 0 40px rgba(255,255,255,0.6);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  border: 8px solid #5cc96a;
+}
+
+.tile {
+  height: 100px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.tile:hover {
+  transform: scale(1.08) rotate(3deg);
+}
+
+.plant img {
+  width: 85%;
+  height: 85%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25));
+}
+
+@keyframes growPlant {
+  from { transform: scale(0.2) rotate(-25deg); opacity: 0; }
+  to   { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.plant { animation: growPlant 0.7s ease forwards; }
 </style>
 </head>
 
@@ -133,82 +164,154 @@ video {
 
 <div class="hero">
   <h1>Grow Your <span>Mind</span></h1>
-  <p>Учись → получай награды → выращивай сад 🌱</p>
+  <p>Учись → получай награды → выращивай красивый сад 🌸</p>
 </div>
 
 <!-- COURSES -->
 <div class="courses" id="courses">
   <div class="card">
-    <h3>Функции</h3>
-    <p>Видео 3 мин</p>
-    <button class="btn" onclick="startLesson()">Начать</button>
+    <h3>Теорема Виета</h3>
+    <p>Видео + тест</p>
+    <button class="btn" onclick="startLesson()">Начать урок</button>
   </div>
 </div>
 
 <!-- LESSON -->
 <div class="lesson" id="lesson">
-  <h2>Видео урок</h2>
+  <h2>Как понять Теорему Виета за 1 минуту</h2>
 
-  <video id="video" controls>
-    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-  </video>
+  <!-- YouTube плеер будет создан здесь -->
+  <div id="player"></div>
 
-  <div class="quiz" id="quiz" style="display:none;">
-    <h3>Что такое функция?</h3>
-    <button class="answer" onclick="checkAnswer(false)">Просто число</button>
-    <button class="answer" onclick="checkAnswer(true)">Зависимость между величинами</button>
+  <div id="video-message">
+    Досмотрите видео до конца,<br>чтобы открыть вопросы
   </div>
-</div>
 
-<div class="reward" id="reward"></div>
+  <!-- Вопросы -->
+  <div class="quiz" id="quiz">
+    <h3>Вопрос 1: Какая формула Теоремы Виета?</h3>
+    <button class="answer" onclick="checkAnswer(1, false)">x₁ + x₂ = -b</button>
+    <button class="answer" onclick="checkAnswer(1, true)">x₁ + x₂ = -b/a, x₁·x₂ = c/a</button>
+    <button class="answer" onclick="checkAnswer(1, false)">x₁·x₂ = b/a</button>
+  </div>
+
+  <div class="quiz" id="quiz2">
+    <h3>Вопрос 2: Для уравнения x² - 5x + 6 = 0, чему равен x₁ + x₂?</h3>
+    <button class="answer" onclick="checkAnswer(2, true)">5</button>
+    <button class="answer" onclick="checkAnswer(2, false)">-5</button>
+    <button class="answer" onclick="checkAnswer(2, false)">6</button>
+  </div>
+
+  <div class="quiz" id="quiz3">
+    <h3>Вопрос 3: Для уравнения x² + 7x + 12 = 0, чему равно произведение корней?</h3>
+    <button class="answer" onclick="checkAnswer(3, false)">7</button>
+    <button class="answer" onclick="checkAnswer(3, true)">12</button>
+    <button class="answer" onclick="checkAnswer(3, false)">-12</button>
+  </div>
+
+  <div class="reward" id="reward"></div>
+</div>
 
 <!-- GARDEN -->
 <div class="garden" id="garden"></div>
 
 <script>
+// Загружаем YouTube IFrame API
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+let player;
 let coins = 0;
+let videoWatched = false;
 
 function updateCoins() {
   document.getElementById("coins").innerText = coins;
 }
 
-// START LESSON
+// Запуск урока
 function startLesson() {
   document.getElementById("courses").style.display = "none";
   document.getElementById("lesson").style.display = "block";
-}
-
-// SHOW QUIZ AFTER VIDEO
-document.getElementById("video").onended = () => {
-  document.getElementById("quiz").style.display = "block";
-};
-
-// CHECK ANSWER
-function checkAnswer(correct) {
-  if (correct) {
-    coins += 20;
-    updateCoins();
-
-    showReward("Правильно! +20 монет 🎉");
-
-    document.getElementById("lesson").style.display = "none";
-    document.getElementById("courses").style.display = "flex";
-  } else {
-    showReward("Попробуй ещё раз ❌");
+  document.getElementById("video-message").style.display = "block";
+  
+  // Скрываем все вопросы
+  document.querySelectorAll('.quiz').forEach(q => q.style.display = "none");
+  
+  // Создаём YouTube плеер (если ещё не создан)
+  if (!player) {
+    player = new YT.Player('player', {
+      height: '599',
+      width: '337',
+      videoId: 'dq4TiD7LfjU',
+      playerVars: {
+        'autoplay': 0,
+        'rel': 0,
+        'modestbranding': 1
+      },
+      events: {
+        'onStateChange': onPlayerStateChange
+      }
+    });
   }
 }
 
-// REWARD ANIMATION
+// Вызывается при изменении состояния видео
+function onPlayerStateChange(event) {
+  if (event.data === YT.PlayerState.ENDED) {   // 0 = ended
+    videoWatched = true;
+    document.getElementById("video-message").style.display = "none";
+    document.getElementById("quiz").style.display = "block";   // показываем первый вопрос
+  }
+}
+
+// Проверка ответа
+function checkAnswer(questionNum, correct) {
+  if (!videoWatched) {
+    showReward("Сначала досмотрите видео до конца!");
+    return;
+  }
+
+  if (correct) {
+    coins += 20;
+    updateCoins();
+    showReward("Правильно! +20 монет 🎉");
+
+    if (questionNum === 1) {
+      document.getElementById("quiz").style.display = "none";
+      document.getElementById("quiz2").style.display = "block";
+    } else if (questionNum === 2) {
+      document.getElementById("quiz2").style.display = "none";
+      document.getElementById("quiz3").style.display = "block";
+    } else if (questionNum === 3) {
+      setTimeout(() => {
+        document.getElementById("lesson").style.display = "none";
+        document.getElementById("courses").style.display = "flex";
+        videoWatched = false;   // сбрасываем для следующего прохождения
+      }, 1800);
+    }
+  } else {
+    showReward("Неправильно ❌ Попробуй ещё раз");
+  }
+}
+
 function showReward(text) {
   let el = document.getElementById("reward");
   el.innerText = text;
-  setTimeout(() => el.innerText = "", 2000);
+  setTimeout(() => el.innerText = "", 2800);
 }
 
-// GARDEN
+// ==================== GARDEN ====================
 const garden = document.getElementById("garden");
 
-const plants = ["🌱","🌷","🌸","🌺"];
+const plantImages = [
+  "https://cdn-icons-png.flaticon.com/512/628/628276.png",
+  "https://cdn-icons-png.flaticon.com/512/628/628278.png",
+  "https://cdn-icons-png.flaticon.com/512/628/628280.png",
+  "https://cdn-icons-png.flaticon.com/512/628/628282.png",
+  "https://cdn-icons-png.flaticon.com/512/628/628284.png"
+];
 
 for (let i = 0; i < 9; i++) {
   let tile = document.createElement("div");
@@ -219,14 +322,19 @@ for (let i = 0; i < 9; i++) {
       coins -= 10;
       updateCoins();
 
-      let randomPlant = plants[Math.floor(Math.random() * plants.length)];
+      let randomPlant = plantImages[Math.floor(Math.random() * plantImages.length)];
+      let img = document.createElement("img");
+      img.src = randomPlant;
 
+      tile.innerHTML = "";
+      tile.appendChild(img);
       tile.classList.add("plant");
-      tile.innerText = randomPlant;
     }
   };
   garden.appendChild(tile);
 }
+
+updateCoins();
 </script>
 
 </body>
