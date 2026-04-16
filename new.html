@@ -5,41 +5,27 @@
 <title>BLOOMIX</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #f6fff9;
-}
+body { margin: 0; font-family: Arial; background: #f6fff9; }
 
-/* NAV */
 .nav {
   display: flex;
   justify-content: space-between;
   padding: 15px 30px;
   background: white;
 }
-
 .logo { color: #4CE09E; font-weight: bold; font-size: 24px; }
+.coins { background: #FFFFAB; padding: 8px 15px; border-radius: 20px; font-weight: bold; }
 
-.coins {
-  background: #FFFFAB;
-  padding: 8px 15px;
-  border-radius: 20px;
-  font-weight: bold;
-}
-
-/* HERO + COURSES */
 .hero, .courses { text-align: center; padding: 30px; }
 
 .card {
   background: white;
   padding: 20px;
   border-radius: 20px;
-  width: 220px;
+  width: 240px;
   margin: 0 auto;
   box-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
-
 .btn {
   background: #4CE09E;
   border: none;
@@ -51,39 +37,24 @@ body {
   font-size: 16px;
 }
 
-/* LESSON */
 .lesson {
   display: none;
   text-align: center;
   padding: 20px;
 }
-
-.lesson h2 { margin-bottom: 15px; }
-
-#player {
-  margin: 20px auto;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
+#player { margin: 20px auto; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
 
 #video-message {
   background: rgba(0,0,0,0.75);
   color: white;
   padding: 15px 25px;
   border-radius: 15px;
-  font-size: 16px;
   margin: 20px auto;
   max-width: 320px;
   display: none;
 }
 
-/* QUIZ */
-.quiz {
-  margin-top: 25px;
-  display: none;
-}
-
+.quiz { margin-top: 25px; display: none; }
 .answer {
   display: block;
   margin: 12px auto;
@@ -95,10 +66,8 @@ body {
   width: 85%;
   font-size: 16px;
 }
-
 .answer:hover { background: #d4b8ff; }
 
-/* REWARD */
 .reward {
   text-align: center;
   color: #4CE09E;
@@ -121,7 +90,6 @@ body {
   gap: 12px;
   border: 8px solid #5cc96a;
 }
-
 .tile {
   height: 100px;
   background: rgba(255,255,255,0.4);
@@ -134,23 +102,15 @@ body {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   overflow: hidden;
 }
-
-.tile:hover {
-  transform: scale(1.08) rotate(3deg);
-}
-
+.tile:hover { transform: scale(1.08) rotate(3deg); }
 .plant img {
-  width: 85%;
-  height: 85%;
-  object-fit: contain;
+  width: 85%; height: 85%; object-fit: contain;
   filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25));
 }
-
 @keyframes growPlant {
   from { transform: scale(0.2) rotate(-25deg); opacity: 0; }
-  to   { transform: scale(1) rotate(0deg); opacity: 1; }
+  to { transform: scale(1) rotate(0deg); opacity: 1; }
 }
-
 .plant { animation: growPlant 0.7s ease forwards; }
 </style>
 </head>
@@ -170,43 +130,50 @@ body {
 <!-- COURSES -->
 <div class="courses" id="courses">
   <div class="card">
-    <h3>Теорема Виета</h3>
-    <p>Видео + тест</p>
+    <h3>Квадратные уравнения</h3>
+    <p>Теорема Виета + Дискриминант</p>
     <button class="btn" onclick="startLesson()">Начать урок</button>
   </div>
 </div>
 
 <!-- LESSON -->
 <div class="lesson" id="lesson">
-  <h2>Как понять Теорему Виета за 1 минуту</h2>
+  <h2 id="lesson-title">Как понять Теорему Виета</h2>
 
-  <!-- YouTube плеер будет создан здесь -->
   <div id="player"></div>
 
   <div id="video-message">
     Досмотрите видео до конца,<br>чтобы открыть вопросы
   </div>
 
-  <!-- Вопросы -->
-  <div class="quiz" id="quiz">
-    <h3>Вопрос 1: Какая формула Теоремы Виета?</h3>
-    <button class="answer" onclick="checkAnswer(1, false)">x₁ + x₂ = -b</button>
-    <button class="answer" onclick="checkAnswer(1, true)">x₁ + x₂ = -b/a, x₁·x₂ = c/a</button>
-    <button class="answer" onclick="checkAnswer(1, false)">x₁·x₂ = b/a</button>
+  <!-- Вопросы по Виете -->
+  <div class="quiz" id="vietQuiz">
+    <h3>Вопрос 1: Формула Теоремы Виета</h3>
+    <button class="answer" onclick="checkAnswer('viet', 1, false)">x₁ + x₂ = -b</button>
+    <button class="answer" onclick="checkAnswer('viet', 1, true)">x₁ + x₂ = -b/a, x₁·x₂ = c/a</button>
+    <button class="answer" onclick="checkAnswer('viet', 1, false)">x₁·x₂ = b/a</button>
   </div>
 
-  <div class="quiz" id="quiz2">
-    <h3>Вопрос 2: Для уравнения x² - 5x + 6 = 0, чему равен x₁ + x₂?</h3>
-    <button class="answer" onclick="checkAnswer(2, true)">5</button>
-    <button class="answer" onclick="checkAnswer(2, false)">-5</button>
-    <button class="answer" onclick="checkAnswer(2, false)">6</button>
+  <!-- Вопросы по Дискриминанту -->
+  <div class="quiz" id="discQuiz1">
+    <h3>Вопрос 1: Формула дискриминанта</h3>
+    <button class="answer" onclick="checkAnswer('disc', 1, true)">D = b² - 4ac</button>
+    <button class="answer" onclick="checkAnswer('disc', 1, false)">D = b² + 4ac</button>
+    <button class="answer" onclick="checkAnswer('disc', 1, false)">D = a² - 4bc</button>
   </div>
 
-  <div class="quiz" id="quiz3">
-    <h3>Вопрос 3: Для уравнения x² + 7x + 12 = 0, чему равно произведение корней?</h3>
-    <button class="answer" onclick="checkAnswer(3, false)">7</button>
-    <button class="answer" onclick="checkAnswer(3, true)">12</button>
-    <button class="answer" onclick="checkAnswer(3, false)">-12</button>
+  <div class="quiz" id="discQuiz2">
+    <h3>Вопрос 2: Если D > 0, то сколько корней?</h3>
+    <button class="answer" onclick="checkAnswer('disc', 2, true)">Два различных действительных корня</button>
+    <button class="answer" onclick="checkAnswer('disc', 2, false)">Один корень</button>
+    <button class="answer" onclick="checkAnswer('disc', 2, false)">Корней нет</button>
+  </div>
+
+  <div class="quiz" id="discQuiz3">
+    <h3>Вопрос 3: Дискриминант уравнения x² - 6x + 9 = 0</h3>
+    <button class="answer" onclick="checkAnswer('disc', 3, true)">0</button>
+    <button class="answer" onclick="checkAnswer('disc', 3, false)">36</button>
+    <button class="answer" onclick="checkAnswer('disc', 3, false)">-36</button>
   </div>
 
   <div class="reward" id="reward"></div>
@@ -216,7 +183,7 @@ body {
 <div class="garden" id="garden"></div>
 
 <script>
-// Загружаем YouTube IFrame API
+// YouTube API
 var tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -224,72 +191,83 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 let player;
 let coins = 0;
-let videoWatched = false;
+let currentMode = 'viet';   // 'viet' или 'disc'
+
+const videoIds = {
+  viet: 'dq4TiD7LfjU',
+  disc: '6AzA2gl4tBA'
+};
 
 function updateCoins() {
   document.getElementById("coins").innerText = coins;
 }
 
-// Запуск урока
 function startLesson() {
   document.getElementById("courses").style.display = "none";
   document.getElementById("lesson").style.display = "block";
+
+  // Переключаем режим каждый раз при новом запуске
+  currentMode = (currentMode === 'viet') ? 'disc' : 'viet';
+
+  document.getElementById("lesson-title").innerText = 
+    currentMode === 'viet' ? "Как понять Теорему Виета" : "Дискриминант за 30 секунд";
+
   document.getElementById("video-message").style.display = "block";
-  
+
   // Скрываем все вопросы
   document.querySelectorAll('.quiz').forEach(q => q.style.display = "none");
-  
-  // Создаём YouTube плеер (если ещё не создан)
+
   if (!player) {
     player = new YT.Player('player', {
       height: '599',
       width: '337',
-      videoId: 'dq4TiD7LfjU',
-      playerVars: {
-        'autoplay': 0,
-        'rel': 0,
-        'modestbranding': 1
-      },
-      events: {
-        'onStateChange': onPlayerStateChange
-      }
+      videoId: videoIds[currentMode],
+      playerVars: { 'autoplay': 0, 'rel': 0, 'modestbranding': 1 },
+      events: { 'onStateChange': onPlayerStateChange }
     });
+  } else {
+    player.loadVideoById(videoIds[currentMode]);
   }
 }
 
-// Вызывается при изменении состояния видео
 function onPlayerStateChange(event) {
-  if (event.data === YT.PlayerState.ENDED) {   // 0 = ended
-    videoWatched = true;
+  if (event.data === YT.PlayerState.ENDED) {
     document.getElementById("video-message").style.display = "none";
-    document.getElementById("quiz").style.display = "block";   // показываем первый вопрос
+
+    if (currentMode === 'viet') {
+      document.getElementById("vietQuiz").style.display = "block";
+    } else {
+      document.getElementById("discQuiz1").style.display = "block";
+    }
   }
 }
 
-// Проверка ответа
-function checkAnswer(questionNum, correct) {
-  if (!videoWatched) {
-    showReward("Сначала досмотрите видео до конца!");
-    return;
-  }
-
+function checkAnswer(mode, questionNum, correct) {
   if (correct) {
     coins += 20;
     updateCoins();
     showReward("Правильно! +20 монет 🎉");
 
-    if (questionNum === 1) {
-      document.getElementById("quiz").style.display = "none";
-      document.getElementById("quiz2").style.display = "block";
-    } else if (questionNum === 2) {
-      document.getElementById("quiz2").style.display = "none";
-      document.getElementById("quiz3").style.display = "block";
-    } else if (questionNum === 3) {
+    if (mode === 'viet') {
+      // После вопросов по Виете возвращаемся в меню
       setTimeout(() => {
         document.getElementById("lesson").style.display = "none";
         document.getElementById("courses").style.display = "flex";
-        videoWatched = false;   // сбрасываем для следующего прохождения
-      }, 1800);
+      }, 1500);
+    } else {
+      // Для дискриминанта — переходим к следующему вопросу
+      if (questionNum === 1) {
+        document.getElementById("discQuiz1").style.display = "none";
+        document.getElementById("discQuiz2").style.display = "block";
+      } else if (questionNum === 2) {
+        document.getElementById("discQuiz2").style.display = "none";
+        document.getElementById("discQuiz3").style.display = "block";
+      } else if (questionNum === 3) {
+        setTimeout(() => {
+          document.getElementById("lesson").style.display = "none";
+          document.getElementById("courses").style.display = "flex";
+        }, 1500);
+      }
     }
   } else {
     showReward("Неправильно ❌ Попробуй ещё раз");
@@ -304,7 +282,6 @@ function showReward(text) {
 
 // ==================== GARDEN ====================
 const garden = document.getElementById("garden");
-
 const plantImages = [
   "https://cdn-icons-png.flaticon.com/512/628/628276.png",
   "https://cdn-icons-png.flaticon.com/512/628/628278.png",
@@ -316,16 +293,13 @@ const plantImages = [
 for (let i = 0; i < 9; i++) {
   let tile = document.createElement("div");
   tile.className = "tile";
-
   tile.onclick = () => {
     if (coins >= 10 && !tile.classList.contains("plant")) {
       coins -= 10;
       updateCoins();
-
       let randomPlant = plantImages[Math.floor(Math.random() * plantImages.length)];
       let img = document.createElement("img");
       img.src = randomPlant;
-
       tile.innerHTML = "";
       tile.appendChild(img);
       tile.classList.add("plant");
