@@ -272,7 +272,7 @@
     function login() {
       const email = document.getElementById('login-email').value;
       if (email) {
-        alert('Добро пожаловать обратно в Bloomix! 🌱\n(Демо-режим)');
+        window.location.href = './index.html'
       } else {
         alert('Пожалуйста, введите email');
       }
