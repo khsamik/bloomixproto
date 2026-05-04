@@ -1,0 +1,17 @@
+.garden{
+    background-image:url('./plant.jpg');
+    background-size:contain;
+width:auto;
+height:1000px;
+background-repeat: no-repeat
+}
+
+.container {
+    max-width: 1440px;
+    margin:0 auto;
+}
+
+img {
+    width: 200px;
+    height: 200px;
+}
